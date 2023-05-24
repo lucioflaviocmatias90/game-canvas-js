@@ -1,14 +1,21 @@
 class Sprite {
-  constructor({ position, velocity, image, frames = { max: 1 }, sprites }) {
+  constructor({
+    position,
+    velocity,
+    imageSrc,
+    frames = { max: 1 },
+    sprites = [],
+  }) {
     this.position = position;
-    this.image = image;
+    this.image = new Image();
+    this.image.src = imageSrc;
     this.frames = { ...frames, val: 0, elapsed: 0 };
     this.image.onload = () => {
       this.width = this.image.width / this.frames.max;
       this.height = this.image.height;
     };
     this.moving = false;
-    this.sprites = sprites;
+    this.sprites = this.setSprites(sprites);
   }
 
   draw() {
@@ -30,10 +37,24 @@ class Sprite {
       this.frames.elapsed++;
     }
 
-    if (this.frames.elapsed % 10 === 0) {
+    if (this.frames.elapsed % 20 === 0) {
       if (this.frames.val < this.frames.max - 1) this.frames.val++;
       else this.frames.val = 0;
     }
+  }
+
+  setSprites(sprites) {
+    if (!sprites.length) return sprites;
+
+    let spriteFormatted = {};
+
+    sprites.forEach((sprite) => {
+      const image = new Image();
+      image.src = sprite.imageSrc;
+      spriteFormatted[sprite.action] = image;
+    });
+
+    return spriteFormatted;
   }
 }
 
@@ -43,8 +64,8 @@ class Boundary {
 
   constructor({ position }) {
     this.position = position;
-    this.width = 48;
-    this.height = 48;
+    this.width = Boundary.width;
+    this.height = Boundary.height;
   }
 
   draw() {

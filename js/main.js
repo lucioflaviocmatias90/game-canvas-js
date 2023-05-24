@@ -34,39 +34,33 @@ collisionsMap.forEach((row, i) => {
   });
 });
 
-const image = new Image();
-image.src = "./img/Pellet Town.png";
-
-const foregroundImage = new Image();
-foregroundImage.src = "./img/foregroundObjects.png";
-
-const playerDownImage = new Image();
-playerDownImage.src = "./img/playerDown.png";
-
-const playerUpImage = new Image();
-playerUpImage.src = "./img/playerUp.png";
-
-const playerLeftImage = new Image();
-playerLeftImage.src = "./img/playerLeft.png";
-
-const playerRightImage = new Image();
-playerRightImage.src = "./img/playerRight.png";
-
 const player = new Sprite({
   position: {
     x: canvas.width / 2 - 192 / 4 / 2,
     y: canvas.height / 2 - 68 / 2,
   },
-  image: playerDownImage,
+  imageSrc: "./img/playerDown.png",
   frames: {
     max: 4,
   },
-  sprites: {
-    up: playerUpImage,
-    left: playerLeftImage,
-    right: playerRightImage,
-    down: playerDownImage,
-  },
+  sprites: [
+    {
+      action: "up",
+      imageSrc: "./img/playerUp.png",
+    },
+    {
+      action: "left",
+      imageSrc: "./img/playerLeft.png",
+    },
+    {
+      action: "right",
+      imageSrc: "./img/playerRight.png",
+    },
+    {
+      action: "down",
+      imageSrc: "./img/playerDown.png",
+    },
+  ],
 });
 
 const background = new Sprite({
@@ -74,7 +68,7 @@ const background = new Sprite({
     x: offset.x,
     y: offset.y,
   },
-  image,
+  imageSrc: "./img/Pellet Town.png",
 });
 
 const foreground = new Sprite({
@@ -82,7 +76,7 @@ const foreground = new Sprite({
     x: offset.x,
     y: offset.y,
   },
-  image: foregroundImage,
+  imageSrc: "./img/foregroundObjects.png",
 });
 
 const keys = {
