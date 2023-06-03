@@ -63,6 +63,18 @@ const player = new Sprite({
   ],
 });
 
+const bubbleMonster = new Sprite({
+  imageSrc: "./img/monsters/bubble-green.png",
+  position: {
+    x: 600,
+    y: 340,
+  },
+  frames: {
+    max: 4,
+  },
+  moving: true,
+});
+
 const background = new Sprite({
   position: {
     x: offset.x,
@@ -94,7 +106,7 @@ const keys = {
   },
 };
 
-const movables = [background, ...boundaries, foreground];
+const movables = [background, ...boundaries, foreground, bubbleMonster];
 
 function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
@@ -118,8 +130,11 @@ function animate() {
 
   foreground.draw();
 
+  bubbleMonster.draw();
+
   let moving = true;
   player.moving = false;
+
   if (keys.w.pressed) {
     player.moving = true;
     player.image = player.sprites.up;
