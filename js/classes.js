@@ -6,17 +6,19 @@ class Sprite {
     frames = { max: 1 },
     sprites = [],
     moving = false,
+    imageWidth,
+    imageHeight,
   }) {
     this.position = position;
     this.image = new Image();
     this.image.src = imageSrc;
     this.frames = { ...frames, val: 0, elapsed: 0 };
-    this.image.onload = () => {
-      this.width = this.image.width / this.frames.max;
-      this.height = this.image.height;
-    };
+    this.image.width = imageWidth;
+    this.image.height = imageHeight;
     this.moving = moving;
     this.sprites = this.setSprites(sprites);
+    this.width = this.image.width / this.frames.max;
+    this.height = this.image.height;
   }
 
   draw() {

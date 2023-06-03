@@ -40,6 +40,8 @@ const player = new Sprite({
     y: canvas.height / 2 - 68 / 2,
   },
   imageSrc: "./img/playerDown.png",
+  imageWidth: 192,
+  imageHeight: 68,
   frames: {
     max: 4,
   },
@@ -63,17 +65,47 @@ const player = new Sprite({
   ],
 });
 
-const bubbleMonster = new Sprite({
-  imageSrc: "./img/monsters/bubble-green.png",
-  position: {
-    x: 600,
-    y: 340,
+const bubbleMonsters = [
+  {
+    position: {
+      x: 600,
+      y: 340,
+    },
   },
-  frames: {
-    max: 4,
+  {
+    position: {
+      x: 750,
+      y: 140,
+    },
   },
-  moving: true,
-});
+  {
+    position: {
+      x: 400,
+      y: 440,
+    },
+  },
+  {
+    position: {
+      x: 140,
+      y: 210,
+    },
+  },
+].map(
+  (monster) =>
+    new Sprite({
+      imageSrc: "./img/monsters/bubble-green.png",
+      imageWidth: 240,
+      imageHeight: 52,
+      position: {
+        x: monster.position.x,
+        y: monster.position.y,
+      },
+      frames: {
+        max: 4,
+      },
+      moving: true,
+    })
+);
 
 const background = new Sprite({
   position: {
@@ -81,6 +113,8 @@ const background = new Sprite({
     y: offset.y,
   },
   imageSrc: "./img/Pellet Town.png",
+  imageWidth: 3360,
+  imageHeight: 1920,
 });
 
 const foreground = new Sprite({
@@ -89,6 +123,8 @@ const foreground = new Sprite({
     y: offset.y,
   },
   imageSrc: "./img/foregroundObjects.png",
+  imageWidth: 3360,
+  imageHeight: 1920,
 });
 
 const keys = {
@@ -106,7 +142,7 @@ const keys = {
   },
 };
 
-const movables = [background, ...boundaries, foreground, bubbleMonster];
+const movables = [background, ...boundaries, foreground, ...bubbleMonsters];
 
 function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
@@ -130,7 +166,7 @@ function animate() {
 
   foreground.draw();
 
-  bubbleMonster.draw();
+  bubbleMonsters.forEach((bubbleMonster) => bubbleMonster.draw());
 
   let moving = true;
   player.moving = false;
