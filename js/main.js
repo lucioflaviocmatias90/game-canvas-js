@@ -39,13 +39,17 @@ const player = new Sprite({
     x: canvas.width / 2 - 192 / 4 / 2,
     y: canvas.height / 2 - 68 / 2,
   },
-  imageSrc: "./img/playerDown.png",
+  imageSrc: "./img/playerIdle.png",
   imageWidth: 192,
   imageHeight: 68,
   frames: {
     max: 4,
   },
   sprites: [
+    {
+      action: "idle",
+      imageSrc: "./img/playerIdle.png",
+    },
     {
       action: "up",
       imageSrc: "./img/playerUp.png",
@@ -63,6 +67,7 @@ const player = new Sprite({
       imageSrc: "./img/playerDown.png",
     },
   ],
+  moving: true,
 });
 
 const bubbleMonsters = [
@@ -138,6 +143,20 @@ const rock = new Sprite({
   },
 });
 
+const wormMonster = new Sprite({
+  imageSrc: "./img/monsters/worm.png",
+  imageWidth: 344,
+  imageHeight: 89,
+  position: {
+    x: 1120,
+    y: 0,
+  },
+  moving: true,
+  frames: {
+    max: 4,
+  },
+});
+
 const keys = {
   w: {
     pressed: false,
@@ -159,6 +178,7 @@ const movables = [
   foreground,
   ...bubbleMonsters,
   rock,
+  wormMonster,
 ];
 
 function rectangularCollision({ rectangle1, rectangle2 }) {
@@ -187,7 +207,9 @@ function animate() {
 
   rock.draw();
 
-  let moving = true;
+  wormMonster.draw();
+
+  let backgroundMoving = true;
   player.moving = false;
 
   if (keys.w.pressed) {
@@ -208,11 +230,11 @@ function animate() {
           },
         })
       ) {
-        moving = false;
+        backgroundMoving = false;
         break;
       }
     }
-    if (moving) {
+    if (backgroundMoving) {
       movables.forEach((movable) => (movable.position.y += 3));
     }
   }
@@ -235,11 +257,11 @@ function animate() {
           },
         })
       ) {
-        moving = false;
+        backgroundMoving = false;
         break;
       }
     }
-    if (moving) {
+    if (backgroundMoving) {
       movables.forEach((movable) => (movable.position.y -= 3));
     }
   }
@@ -262,11 +284,11 @@ function animate() {
           },
         })
       ) {
-        moving = false;
+        backgroundMoving = false;
         break;
       }
     }
-    if (moving) {
+    if (backgroundMoving) {
       movables.forEach((movable) => (movable.position.x += 3));
     }
   }
@@ -289,11 +311,11 @@ function animate() {
           },
         })
       ) {
-        moving = false;
+        backgroundMoving = false;
         break;
       }
     }
-    if (moving) {
+    if (backgroundMoving) {
       movables.forEach((movable) => (movable.position.x -= 3));
     }
   }
@@ -350,4 +372,11 @@ window.addEventListener("keyup", (ev) => {
     default:
       break;
   }
+});
+
+window.addEventListener("click", (ev) => {
+  console.log({
+    x: ev.x,
+    y: ev.y,
+  });
 });
