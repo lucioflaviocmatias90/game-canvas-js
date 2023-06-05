@@ -104,6 +104,7 @@ const bubbleMonsters = [
         max: 4,
       },
       moving: true,
+      velocity: 15,
     })
 );
 
@@ -127,6 +128,16 @@ const foreground = new Sprite({
   imageHeight: 1920,
 });
 
+const rock = new Sprite({
+  imageSrc: "./img/rock.png",
+  imageWidth: 60,
+  imageHeight: 59,
+  position: {
+    x: 455,
+    y: 400,
+  },
+});
+
 const keys = {
   w: {
     pressed: false,
@@ -142,7 +153,13 @@ const keys = {
   },
 };
 
-const movables = [background, ...boundaries, foreground, ...bubbleMonsters];
+const movables = [
+  background,
+  ...boundaries,
+  foreground,
+  ...bubbleMonsters,
+  rock,
+];
 
 function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
@@ -167,6 +184,8 @@ function animate() {
   foreground.draw();
 
   bubbleMonsters.forEach((bubbleMonster) => bubbleMonster.draw());
+
+  rock.draw();
 
   let moving = true;
   player.moving = false;
