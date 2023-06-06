@@ -7,12 +7,22 @@ canvas.height = 576;
 ctx.fillStyle = "white";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+let collisionsSaved = localStorage.getItem("collisionsSaved");
+
+if (!collisionsSaved) {
+  localStorage.setItem("collisionsSaved", JSON.stringify(collisions));
+  collisionsSaved = collisions;
+} else {
+  collisionsSaved = JSON.parse(collisionsSaved);
+}
+
 const collisionsMap = [];
-for (let i = 0; i < collisions.length; i += 70) {
-  collisionsMap.push(collisions.slice(i, 70 + i));
+for (let i = 0; i < collisionsSaved.length; i += 70) {
+  collisionsMap.push(collisionsSaved.slice(i, 70 + i));
 }
 
 const boundaries = [];
+const bubbleMonsters = [];
 
 const offset = {
   x: -735,
@@ -29,6 +39,24 @@ collisionsMap.forEach((row, i) => {
             y: i * Boundary.height + offset.y,
           },
           code: symbol,
+        })
+      );
+    }
+    if (symbol === 39) {
+      bubbleMonsters.push(
+        new Sprite({
+          imageSrc: "./img/monsters/bubble-green.png",
+          imageWidth: 240,
+          imageHeight: 52,
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y,
+          },
+          frames: {
+            max: 4,
+          },
+          moving: true,
+          velocity: 15,
         })
       );
     }
@@ -70,49 +98,6 @@ const player = new Sprite({
   ],
   moving: true,
 });
-
-const bubbleMonsters = [
-  {
-    position: {
-      x: 600,
-      y: 340,
-    },
-  },
-  {
-    position: {
-      x: 750,
-      y: 140,
-    },
-  },
-  {
-    position: {
-      x: 400,
-      y: 440,
-    },
-  },
-  {
-    position: {
-      x: 140,
-      y: 210,
-    },
-  },
-].map(
-  (monster) =>
-    new Sprite({
-      imageSrc: "./img/monsters/bubble-green.png",
-      imageWidth: 240,
-      imageHeight: 52,
-      position: {
-        x: monster.position.x,
-        y: monster.position.y,
-      },
-      frames: {
-        max: 4,
-      },
-      moving: true,
-      velocity: 15,
-    })
-);
 
 const background = new Sprite({
   position: {
@@ -397,8 +382,28 @@ window.addEventListener("keyup", (ev) => {
 });
 
 window.addEventListener("click", (ev) => {
+  const position = {
+    x: Math.floor((ev.x - offset.x) / 48),
+    y: Math.floor((ev.y - offset.y) / 48),
+  };
+
+  const block = position.y * 70 + position.x;
+
   console.log({
-    x: ev.x,
-    y: ev.y,
+    ...position,
+    block,
   });
+
+  collisionsSaved[block] = 39;
+  localStorage.setItem("collisionsSaved", JSON.stringify(collisions));
+
+  boundaries.push(
+    new Boundary({
+      code: 39,
+      position: {
+        x: ev.x,
+        y: ev.y,
+      },
+    })
+  );
 });
