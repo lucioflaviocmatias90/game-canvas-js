@@ -23,6 +23,20 @@ class Sprite {
   }
 
   draw() {
+    // if (this.image.src === "http://127.0.0.1:5500/img/playerIdle.png") {
+    //   console.log({
+    //     image: this.image,
+    //     sx: this.frames.val * this.width,
+    //     sy: 0,
+    //     sw: this.image.width / this.frames.max,
+    //     sh: this.image.height,
+    //     dx: this.position.x,
+    //     dy: this.position.y,
+    //     dw: this.image.width / this.frames.max,
+    //     dh: this.image.height,
+    //   });
+    // }
+
     ctx.drawImage(
       this.image,
       this.frames.val * this.width,
@@ -66,14 +80,18 @@ class Boundary {
   static width = 48;
   static height = 48;
 
-  constructor({ position }) {
+  constructor({ position, code }) {
     this.position = position;
     this.width = Boundary.width;
     this.height = Boundary.height;
+    this.code = code;
   }
 
   draw() {
-    ctx.fillStyle = "rgba(255, 0, 0, 0.2)";
+    if (this.code === 39) ctx.fillStyle = "rgba(0, 0, 255, 0.5)";
+
+    if (this.code === 1025) ctx.fillStyle = "rgba(255, 0, 0, 0.2)";
+
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }
