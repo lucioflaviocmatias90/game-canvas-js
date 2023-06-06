@@ -80,17 +80,22 @@ class Boundary {
   static width = 48;
   static height = 48;
 
-  constructor({ position, code }) {
+  constructor({ position, code, isTransparent = false }) {
     this.position = position;
     this.width = Boundary.width;
     this.height = Boundary.height;
     this.code = code;
+    this.isTransparent = isTransparent;
   }
 
   draw() {
-    if (this.code === 39) ctx.fillStyle = "rgba(0, 0, 255, 0.5)";
+    if (this.code === 39) {
+      ctx.fillStyle = `rgba(0, 0, 255, ${this.isTransparent ? "0" : "0.3"})`;
+    }
 
-    if (this.code === 1025) ctx.fillStyle = "rgba(255, 0, 0, 0.2)";
+    if (this.code === 1025) {
+      ctx.fillStyle = `rgba(255, 0, 0, ${this.isTransparent ? "0" : "0.2"})`;
+    }
 
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
