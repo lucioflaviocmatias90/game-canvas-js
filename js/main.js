@@ -157,6 +157,22 @@ const wormMonster = new Sprite({
   },
 });
 
+const healthBar = new Sprite({
+  imageSrc: "./img/health-bar.png",
+  imageWidth: 168 * 5,
+  imageHeight: 36,
+  position: {
+    x: 10,
+    y: 10,
+  },
+  // TODO: apagar as linhas debaixo, quando implementar o personagem receber o dano pelo monstro
+  moving: true,
+  frames: {
+    max: 5,
+  },
+  velocity: 90,
+});
+
 const keys = {
   w: {
     pressed: false,
@@ -208,6 +224,8 @@ function animate() {
   rock.draw();
 
   wormMonster.draw();
+
+  healthBar.draw();
 
   let backgroundMoving = true;
   player.moving = false;
@@ -319,6 +337,9 @@ function animate() {
       movables.forEach((movable) => (movable.position.x -= 3));
     }
   }
+
+  // player.moving = true;
+  // player.image = player.sprites.idle;
 }
 
 animate();
