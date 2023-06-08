@@ -104,7 +104,7 @@ const background = new Sprite({
     x: offset.x,
     y: offset.y,
   },
-  imageSrc: "./img/Pellet Town.png",
+  imageSrc: "./img/background-map-1.png",
   imageWidth: 3360,
   imageHeight: 1920,
 });
@@ -126,6 +126,16 @@ const rock = new Sprite({
   position: {
     x: 455,
     y: 400,
+  },
+});
+
+const tree = new Sprite({
+  imageSrc: "./img/tree-2.png",
+  imageWidth: 224,
+  imageHeight: 228,
+  position: {
+    x: 680,
+    y: 170,
   },
 });
 
@@ -181,6 +191,7 @@ const movables = [
   ...bubbleMonsters,
   rock,
   wormMonster,
+  tree,
 ];
 
 function rectangularCollision({ rectangle1, rectangle2 }) {
@@ -208,6 +219,8 @@ function animate() {
   bubbleMonsters.forEach((bubbleMonster) => bubbleMonster.draw());
 
   rock.draw();
+
+  tree.draw();
 
   wormMonster.draw();
 
