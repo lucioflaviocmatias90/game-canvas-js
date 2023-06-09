@@ -95,6 +95,22 @@ const player = new Sprite({
       action: "down",
       imageSrc: "./img/playerDown.png",
     },
+    {
+      action: "damageUp",
+      imageSrc: "./img/playerUpDamage.png",
+    },
+    {
+      action: "damageLeft",
+      imageSrc: "./img/playerLeftDamage.png",
+    },
+    {
+      action: "damageRight",
+      imageSrc: "./img/playerRightDamage.png",
+    },
+    {
+      action: "damageDown",
+      imageSrc: "./img/playerDownDamage.png",
+    },
   ],
   moving: true,
 });
@@ -248,6 +264,10 @@ function animate() {
         })
       ) {
         backgroundMoving = false;
+        if (boundary.code === 39) {
+          player.moving = true;
+          player.image = player.sprites.damageUp;
+        }
         break;
       }
     }
@@ -275,6 +295,10 @@ function animate() {
         })
       ) {
         backgroundMoving = false;
+        if (boundary.code === 39) {
+          player.moving = true;
+          player.image = player.sprites.damageDown;
+        }
         break;
       }
     }
@@ -302,6 +326,10 @@ function animate() {
         })
       ) {
         backgroundMoving = false;
+        if (boundary.code === 39) {
+          player.moving = true;
+          player.image = player.sprites.damageLeft;
+        }
         break;
       }
     }
@@ -329,6 +357,10 @@ function animate() {
         })
       ) {
         backgroundMoving = false;
+        if (boundary.code === 39) {
+          player.moving = true;
+          player.image = player.sprites.damageRight;
+        }
         break;
       }
     }
