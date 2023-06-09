@@ -42,7 +42,7 @@ collisionsMap.forEach((row, i) => {
         })
       );
     }
-    if (symbol === 39) {
+    if (symbol === mapConstants.monster) {
       bubbleMonsters.push(
         new Sprite({
           imageSrc: "./img/monsters/bubble-green.png",
