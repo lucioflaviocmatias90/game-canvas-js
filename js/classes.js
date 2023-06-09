@@ -80,7 +80,7 @@ class Boundary {
   static width = 48;
   static height = 48;
 
-  constructor({ position, code, isTransparent = true }) {
+  constructor({ position, code, isTransparent = false }) {
     this.position = position;
     this.width = Boundary.width;
     this.height = Boundary.height;

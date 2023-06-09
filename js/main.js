@@ -439,12 +439,12 @@ window.addEventListener("click", (ev) => {
     block,
   });
 
-  collisionsSaved[block] = 39;
+  collisionsSaved[block] = mapConstants.tree;
   localStorage.setItem("collisionsSaved", JSON.stringify(collisions));
 
   boundaries.push(
     new Boundary({
-      code: 39,
+      code: mapConstants.tree,
       position: {
         x: ev.x,
         y: ev.y,
