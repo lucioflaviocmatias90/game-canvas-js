@@ -36,6 +36,46 @@ class Sprite {
     return spriteFormatted;
   }
 
+  getSourcePositionX() {
+    // return this.frames.val * this.sprites[this.spriteName].position.x;
+    return this.frames.val * this.width;
+  }
+
+  getSourcePositionY() {
+    // return this.sprites[this.spriteName].position.y;
+    return 0;
+  }
+
+  getSourceWidth() {
+    // return this.sprites[this.spriteName].width;
+    return this.image.width / this.frames.max;
+  }
+
+  getSourceHeight() {
+    // return this.sprites[this.spriteName].height;
+    return this.image.height;
+  }
+
+  getDestinationPositionX() {
+    // return this.position.x;
+    return this.position.x;
+  }
+
+  getDestinationPositionY() {
+    // return this.position.y;
+    return this.position.y;
+  }
+
+  getDestinationWidth() {
+    // return this.sprites[this.spriteName].width;
+    return this.image.width / this.frames.max;
+  }
+
+  getDestinationHeight() {
+    // return this.sprites[this.spriteName].height;
+    return this.image.height;
+  }
+
   draw() {
     // console.log({
     //   image: this.image,
@@ -51,14 +91,14 @@ class Sprite {
 
     ctx.drawImage(
       this.image,
-      this.frames.val * this.width,
-      0,
-      this.image.width / this.frames.max,
-      this.image.height,
-      this.position.x,
-      this.position.y,
-      this.image.width / this.frames.max,
-      this.image.height
+      this.getSourcePositionX(),
+      this.getSourcePositionY(),
+      this.getSourceWidth(),
+      this.getSourceHeight(),
+      this.getDestinationPositionX(),
+      this.getDestinationPositionY(),
+      this.getDestinationWidth(),
+      this.getDestinationHeight()
     );
 
     if (!this.moving) return;
