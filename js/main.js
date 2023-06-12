@@ -111,6 +111,10 @@ const player = new Sprite({
       action: "damageDown",
       imageSrc: "./img/playerDownDamage.png",
     },
+    {
+      action: "rightAxe",
+      imageSrc: "./img/playerRightAxe.png",
+    },
   ],
   moving: true,
 });
@@ -196,6 +200,9 @@ const keys = {
     pressed: false,
   },
   d: {
+    pressed: false,
+  },
+  spaceBar: {
     pressed: false,
   },
 };
@@ -369,6 +376,37 @@ function animate() {
     }
   }
 
+  if (keys.spaceBar.pressed) {
+    player.moving = true;
+    player.image = player.sprites.rightAxe;
+
+    for (let i = 0; i < boundaries.length; i++) {
+      const boundary = boundaries[i];
+      if (
+        rectangularCollision({
+          rectangle1: player,
+          rectangle2: {
+            ...boundary,
+            position: {
+              x: boundary.position.x - 3,
+              y: boundary.position.y,
+            },
+          },
+        })
+      ) {
+        backgroundMoving = false;
+        if (boundary.code === 39) {
+          player.moving = true;
+          player.image = player.sprites.damageRight;
+        }
+        break;
+      }
+    }
+    // if (backgroundMoving) {
+    //   movables.forEach((movable) => (movable.position.x -= 3));
+    // }
+  }
+
   // player.moving = true;
   // player.image = player.sprites.idle;
 }
@@ -398,6 +436,10 @@ window.addEventListener("keydown", (ev) => {
       lastKey = "d";
       break;
 
+    case " ":
+      keys.spaceBar.pressed = true;
+      break;
+
     default:
       break;
   }
@@ -419,6 +461,10 @@ window.addEventListener("keyup", (ev) => {
 
     case "d":
       keys.d.pressed = false;
+      break;
+
+    case " ":
+      keys.spaceBar.pressed = false;
       break;
 
     default:
