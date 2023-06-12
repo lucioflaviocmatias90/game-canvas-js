@@ -30,31 +30,24 @@ class Sprite {
     sprites.forEach((sprite) => {
       const image = new Image();
       image.src = sprite.imageSrc;
-      spriteFormatted[sprite.action] = {
-        image,
-        frames: sprite.frames,
-        width: sprite.width,
-        height: sprite.height,
-      };
+      spriteFormatted[sprite.action] = image;
     });
 
     return spriteFormatted;
   }
 
   draw() {
-    // if (this.image.src === "http://127.0.0.1:5500/img/playerIdle.png") {
-    //   console.log({
-    //     image: this.image,
-    //     sx: this.frames.val * this.width,
-    //     sy: 0,
-    //     sw: this.image.width / this.frames.max,
-    //     sh: this.image.height,
-    //     dx: this.position.x,
-    //     dy: this.position.y,
-    //     dw: this.image.width / this.frames.max,
-    //     dh: this.image.height,
-    //   });
-    // }
+    // console.log({
+    //   image: this.image,
+    //   sx: this.frames.val * this.width,
+    //   sy: 0,
+    //   sw: this.image.width / this.frames.max,
+    //   sh: this.image.height,
+    //   dx: this.position.x,
+    //   dy: this.position.y,
+    //   dw: this.image.width / this.frames.max,
+    //   dh: this.image.height,
+    // });
 
     ctx.drawImage(
       this.image,
