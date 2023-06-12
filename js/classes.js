@@ -22,6 +22,25 @@ class Sprite {
     this.velocity = velocity;
   }
 
+  setSprites(sprites) {
+    if (!sprites.length) return sprites;
+
+    let spriteFormatted = {};
+
+    sprites.forEach((sprite) => {
+      const image = new Image();
+      image.src = sprite.imageSrc;
+      spriteFormatted[sprite.action] = {
+        image,
+        frames: sprite.frames,
+        width: sprite.width,
+        height: sprite.height,
+      };
+    });
+
+    return spriteFormatted;
+  }
+
   draw() {
     // if (this.image.src === "http://127.0.0.1:5500/img/playerIdle.png") {
     //   console.log({
@@ -60,20 +79,6 @@ class Sprite {
       else this.frames.val = 0;
     }
   }
-
-  setSprites(sprites) {
-    if (!sprites.length) return sprites;
-
-    let spriteFormatted = {};
-
-    sprites.forEach((sprite) => {
-      const image = new Image();
-      image.src = sprite.imageSrc;
-      spriteFormatted[sprite.action] = image;
-    });
-
-    return spriteFormatted;
-  }
 }
 
 class Boundary {
@@ -89,11 +94,11 @@ class Boundary {
   }
 
   draw() {
-    if (this.code === 39) {
+    if (this.code === mapConstants.monster) {
       ctx.fillStyle = `rgba(0, 0, 255, ${this.isTransparent ? "0" : "0.3"})`;
     }
 
-    if (this.code === 1025) {
+    if (this.code === mapConstants.boundary) {
       ctx.fillStyle = `rgba(255, 0, 0, ${this.isTransparent ? "0" : "0.2"})`;
     }
 
