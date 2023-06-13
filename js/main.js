@@ -23,6 +23,7 @@ for (let i = 0; i < collisionsSaved.length; i += 70) {
 
 const boundaries = [];
 const bubbleMonsters = [];
+const rocks = [];
 
 const offset = {
   x: -735,
@@ -57,6 +58,19 @@ collisionsMap.forEach((row, i) => {
           },
           moving: true,
           velocity: 15,
+        })
+      );
+    }
+    if (symbol === mapConstants.rock) {
+      rocks.push(
+        new Sprite({
+          imageSrc: "./img/rock.png",
+          imageWidth: 60,
+          imageHeight: 59,
+          position: {
+            x: j * Boundary.width + offset.x - 4,
+            y: i * Boundary.height + offset.y - 4,
+          },
         })
       );
     }
@@ -200,16 +214,6 @@ const foreground = new Sprite({
   imageHeight: 1920,
 });
 
-const rock = new Sprite({
-  imageSrc: "./img/rock.png",
-  imageWidth: 60,
-  imageHeight: 59,
-  position: {
-    x: 455,
-    y: 400,
-  },
-});
-
 const tree = new Sprite({
   imageSrc: "./img/tree-2.png",
   imageWidth: 224,
@@ -273,7 +277,7 @@ const movables = [
   ...boundaries,
   foreground,
   ...bubbleMonsters,
-  rock,
+  ...rocks,
   wormMonster,
   tree,
 ];
@@ -302,7 +306,7 @@ function animate() {
 
   bubbleMonsters.forEach((bubbleMonster) => bubbleMonster.draw());
 
-  rock.draw();
+  rocks.forEach((rock) => rock.draw());
 
   tree.draw();
 
@@ -531,12 +535,12 @@ window.addEventListener("click", (ev) => {
     block,
   });
 
-  collisionsSaved[block] = mapConstants.tree;
+  collisionsSaved[block] = mapConstants.rock;
   localStorage.setItem("collisionsSaved", JSON.stringify(collisions));
 
   boundaries.push(
     new Boundary({
-      code: mapConstants.tree,
+      code: mapConstants.rock,
       position: {
         x: ev.x,
         y: ev.y,

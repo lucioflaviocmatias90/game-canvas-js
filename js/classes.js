@@ -169,6 +169,10 @@ class Boundary {
       ctx.fillStyle = `rgba(255, 0, 0, ${this.isTransparent ? "0" : "0.2"})`;
     }
 
+    if (this.code === mapConstants.rock) {
+      ctx.fillStyle = `rgba(0, 255, 0, ${this.isTransparent ? "0" : "0.5"})`;
+    }
+
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }
