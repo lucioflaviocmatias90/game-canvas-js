@@ -8,15 +8,17 @@ class Sprite {
     moving = false,
     imageWidth,
     imageHeight,
+    spriteName = "",
   }) {
     this.position = position;
     this.setImage({ imageSrc, imageWidth, imageHeight });
     this.frames = { ...frames, val: 0, elapsed: 0 };
     this.moving = moving;
     this.setSprites(sprites);
-    this.width = this.image.width / this.frames.max;
-    this.height = this.image.height;
+    this.setWidth(spriteName);
+    this.setHeight(spriteName);
     this.velocity = velocity;
+    this.spriteName = spriteName;
   }
 
   setImage({ imageSrc, imageWidth, imageHeight }) {
@@ -24,6 +26,22 @@ class Sprite {
     this.image.src = imageSrc;
     this.image.width = imageWidth;
     this.image.height = imageHeight;
+  }
+
+  setWidth(spriteName) {
+    if (spriteName !== "") {
+      this.width = this.sprites[spriteName].width;
+    } else {
+      this.width = this.image.width / this.frames.max;
+    }
+  }
+
+  setHeight(spriteName) {
+    if (spriteName !== "") {
+      this.height = this.sprites[spriteName].height;
+    } else {
+      this.height = this.image.height;
+    }
   }
 
   setSprites(sprites) {
@@ -52,42 +70,71 @@ class Sprite {
 
   getSourcePositionX() {
     // return this.frames.val * this.sprites[this.spriteName].position.x;
-    return this.frames.val * this.width;
+    if (this.spriteName != "") {
+      return this.sprites[this.spriteName].width * this.frames.val;
+    } else {
+      return this.frames.val * this.width;
+    }
   }
 
   getSourcePositionY() {
     // return this.sprites[this.spriteName].position.y;
-    return 0;
+    if (this.spriteName != "") {
+      return this.sprites[this.spriteName].position.y;
+    } else {
+      return 0;
+    }
   }
 
+  // OK
   getSourceWidth() {
     // return this.sprites[this.spriteName].width;
-    return this.image.width / this.frames.max;
+    if (this.spriteName != "") {
+      return this.sprites[this.spriteName].width;
+    } else {
+      return this.image.width / this.frames.max;
+    }
   }
 
   getSourceHeight() {
     // return this.sprites[this.spriteName].height;
-    return this.image.height;
+    if (this.spriteName != "") {
+      return this.sprites[this.spriteName].height;
+    } else {
+      return this.image.height;
+    }
   }
 
+  // OK
   getDestinationPositionX() {
     // return this.position.x;
     return this.position.x;
   }
 
+  // OK
   getDestinationPositionY() {
     // return this.position.y;
     return this.position.y;
   }
 
+  // OK
   getDestinationWidth() {
     // return this.sprites[this.spriteName].width;
-    return this.image.width / this.frames.max;
+    if (this.spriteName != "") {
+      return this.sprites[this.spriteName].width;
+    } else {
+      return this.image.width / this.frames.max;
+    }
   }
 
+  // OK
   getDestinationHeight() {
     // return this.sprites[this.spriteName].height;
-    return this.image.height;
+    if (this.spriteName != "") {
+      return this.sprites[this.spriteName].height;
+    } else {
+      return this.image.height;
+    }
   }
 
   draw() {

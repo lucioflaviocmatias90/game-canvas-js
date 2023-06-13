@@ -68,12 +68,12 @@ const player = new Sprite({
     x: canvas.width / 2 - 192 / 4 / 2,
     y: canvas.height / 2 - 68 / 2,
   },
-  // imageSrc: "./img/player.png",
-  // imageWidth: 336,
-  // imageHeight: 724,
-  imageSrc: "./img/playerIdle.png",
-  imageWidth: 192,
-  imageHeight: 68,
+  imageSrc: "./img/player.png",
+  imageWidth: 336,
+  imageHeight: 724,
+  // imageSrc: "./img/playerIdle.png",
+  // imageWidth: 192,
+  // imageHeight: 68,
   frames: {
     max: 4,
   },
@@ -190,6 +190,7 @@ const player = new Sprite({
     },
   ],
   moving: true,
+  spriteName: "idle",
 });
 
 const background = new Sprite({
