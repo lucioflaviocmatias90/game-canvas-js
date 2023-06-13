@@ -80,7 +80,6 @@ const player = new Sprite({
   sprites: [
     {
       action: "idle",
-      imageSrc: "./img/playerIdle.png",
       width: 48,
       height: 72,
       position: {
@@ -91,7 +90,6 @@ const player = new Sprite({
     },
     {
       action: "up",
-      imageSrc: "./img/playerUp.png",
       width: 48,
       height: 72,
       position: {
@@ -102,7 +100,6 @@ const player = new Sprite({
     },
     {
       action: "left",
-      imageSrc: "./img/playerLeft.png",
       width: 48,
       height: 72,
       position: {
@@ -113,7 +110,6 @@ const player = new Sprite({
     },
     {
       action: "right",
-      imageSrc: "./img/playerRight.png",
       width: 48,
       height: 72,
       position: {
@@ -124,7 +120,6 @@ const player = new Sprite({
     },
     {
       action: "down",
-      imageSrc: "./img/playerDown.png",
       width: 48,
       height: 72,
       position: {
@@ -135,7 +130,6 @@ const player = new Sprite({
     },
     {
       action: "damageUp",
-      imageSrc: "./img/playerUpDamage.png",
       width: 48,
       height: 72,
       position: {
@@ -146,7 +140,6 @@ const player = new Sprite({
     },
     {
       action: "damageLeft",
-      imageSrc: "./img/playerLeftDamage.png",
       width: 48,
       height: 72,
       position: {
@@ -157,7 +150,6 @@ const player = new Sprite({
     },
     {
       action: "damageRight",
-      imageSrc: "./img/playerRightDamage.png",
       width: 48,
       height: 72,
       position: {
@@ -168,7 +160,6 @@ const player = new Sprite({
     },
     {
       action: "damageDown",
-      imageSrc: "./img/playerDownDamage.png",
       width: 48,
       height: 72,
       position: {
@@ -179,7 +170,6 @@ const player = new Sprite({
     },
     {
       action: "rightAxe",
-      imageSrc: "./img/playerRightAxe.png",
       width: 84,
       height: 80,
       position: {
@@ -325,10 +315,11 @@ function animate() {
 
   let backgroundMoving = true;
   player.moving = false;
+  player.velocity = 10;
 
   if (keys.w.pressed) {
     player.moving = true;
-    player.image = player.sprites.up.image;
+    player.spriteName = "up";
 
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
@@ -347,7 +338,7 @@ function animate() {
         backgroundMoving = false;
         if (boundary.code === 39) {
           player.moving = true;
-          player.image = player.sprites.damageUp.image;
+          player.spriteName = "damageUp";
         }
         break;
       }
@@ -359,7 +350,7 @@ function animate() {
 
   if (keys.s.pressed) {
     player.moving = true;
-    player.image = player.sprites.down.image;
+    player.spriteName = "down";
 
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
@@ -378,7 +369,7 @@ function animate() {
         backgroundMoving = false;
         if (boundary.code === 39) {
           player.moving = true;
-          player.image = player.sprites.damageDown.image;
+          player.spriteName = "damageDown";
         }
         break;
       }
@@ -390,7 +381,7 @@ function animate() {
 
   if (keys.a.pressed) {
     player.moving = true;
-    player.image = player.sprites.left.image;
+    player.spriteName = "left";
 
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
@@ -409,7 +400,7 @@ function animate() {
         backgroundMoving = false;
         if (boundary.code === 39) {
           player.moving = true;
-          player.image = player.sprites.damageLeft.image;
+          player.spriteName = "damageLeft";
         }
         break;
       }
@@ -421,7 +412,7 @@ function animate() {
 
   if (keys.d.pressed) {
     player.moving = true;
-    player.image = player.sprites.right.image;
+    player.spriteName = "right";
 
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
@@ -440,7 +431,7 @@ function animate() {
         backgroundMoving = false;
         if (boundary.code === 39) {
           player.moving = true;
-          player.image = player.sprites.damageRight.image;
+          player.spriteName = "damageRight";
         }
         break;
       }
@@ -452,7 +443,8 @@ function animate() {
 
   if (keys.spaceBar.pressed) {
     player.moving = true;
-    player.image = player.sprites.rightAxe.image;
+    player.spriteName = "rightAxe";
+    player.velocity = 8;
 
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
@@ -471,7 +463,7 @@ function animate() {
         backgroundMoving = false;
         if (boundary.code === 39) {
           player.moving = true;
-          player.image = player.sprites.damageRight.image;
+          player.spriteName = "damageRight";
         }
         break;
       }
