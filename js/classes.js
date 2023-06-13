@@ -45,27 +45,25 @@ class Sprite {
   }
 
   setSprites(sprites) {
-    if (!sprites.length) this.sprites = null;
+    if (!sprites.length) {
+      this.sprites = null;
+    } else {
+      let spriteFormatted = {};
 
-    let spriteFormatted = {};
+      sprites.forEach((sprite) => {
+        spriteFormatted[sprite.action] = {
+          width: sprite.width,
+          height: sprite.height,
+          quantity: sprite.quantity,
+          position: {
+            x: sprite.position.x,
+            y: sprite.position.y,
+          },
+        };
+      });
 
-    sprites.forEach((sprite) => {
-      const image = new Image();
-      image.src = sprite.imageSrc;
-
-      spriteFormatted[sprite.action] = {
-        image,
-        width: sprite.width,
-        height: sprite.height,
-        quantity: sprite.quantity,
-        position: {
-          x: sprite.position.x,
-          y: sprite.position.y,
-        },
-      };
-    });
-
-    this.sprites = spriteFormatted;
+      this.sprites = spriteFormatted;
+    }
   }
 
   getSourcePositionX() {
