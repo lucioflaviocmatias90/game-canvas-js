@@ -67,7 +67,6 @@ class Sprite {
   }
 
   getSourcePositionX() {
-    // return this.frames.val * this.sprites[this.spriteName].position.x;
     if (this.spriteName != "") {
       return this.sprites[this.spriteName].width * this.frames.val;
     } else {
@@ -76,7 +75,6 @@ class Sprite {
   }
 
   getSourcePositionY() {
-    // return this.sprites[this.spriteName].position.y;
     if (this.spriteName != "") {
       return this.sprites[this.spriteName].position.y;
     } else {
@@ -84,9 +82,7 @@ class Sprite {
     }
   }
 
-  // OK
   getSourceWidth() {
-    // return this.sprites[this.spriteName].width;
     if (this.spriteName != "") {
       return this.sprites[this.spriteName].width;
     } else {
@@ -95,7 +91,6 @@ class Sprite {
   }
 
   getSourceHeight() {
-    // return this.sprites[this.spriteName].height;
     if (this.spriteName != "") {
       return this.sprites[this.spriteName].height;
     } else {
@@ -103,21 +98,15 @@ class Sprite {
     }
   }
 
-  // OK
   getDestinationPositionX() {
-    // return this.position.x;
     return this.position.x;
   }
 
-  // OK
   getDestinationPositionY() {
-    // return this.position.y;
     return this.position.y;
   }
 
-  // OK
   getDestinationWidth() {
-    // return this.sprites[this.spriteName].width;
     if (this.spriteName != "") {
       return this.sprites[this.spriteName].width;
     } else {
@@ -125,9 +114,7 @@ class Sprite {
     }
   }
 
-  // OK
   getDestinationHeight() {
-    // return this.sprites[this.spriteName].height;
     if (this.spriteName != "") {
       return this.sprites[this.spriteName].height;
     } else {
@@ -136,18 +123,6 @@ class Sprite {
   }
 
   draw() {
-    // console.log({
-    //   image: this.image,
-    //   sx: this.frames.val * this.width,
-    //   sy: 0,
-    //   sw: this.image.width / this.frames.max,
-    //   sh: this.image.height,
-    //   dx: this.position.x,
-    //   dy: this.position.y,
-    //   dw: this.image.width / this.frames.max,
-    //   dh: this.image.height,
-    // });
-
     ctx.drawImage(
       this.image,
       this.getSourcePositionX(),

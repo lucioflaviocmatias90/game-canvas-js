@@ -71,9 +71,6 @@ const player = new Sprite({
   imageSrc: "./img/player.png",
   imageWidth: 336,
   imageHeight: 724,
-  // imageSrc: "./img/playerIdle.png",
-  // imageWidth: 192,
-  // imageHeight: 68,
   frames: {
     max: 4,
   },
@@ -468,13 +465,7 @@ function animate() {
         break;
       }
     }
-    // if (backgroundMoving) {
-    //   movables.forEach((movable) => (movable.position.x -= 3));
-    // }
   }
-
-  // player.moving = true;
-  // player.image = player.sprites.idle;
 }
 
 animate();
