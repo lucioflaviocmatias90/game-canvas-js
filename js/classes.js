@@ -10,16 +10,21 @@ class Sprite {
     imageHeight,
   }) {
     this.position = position;
-    this.image = new Image();
-    this.image.src = imageSrc;
+    this.setImage({ imageSrc, imageWidth, imageHeight });
     this.frames = { ...frames, val: 0, elapsed: 0 };
-    this.image.width = imageWidth;
-    this.image.height = imageHeight;
+
     this.moving = moving;
     this.sprites = this.setSprites(sprites);
     this.width = this.image.width / this.frames.max;
     this.height = this.image.height;
     this.velocity = velocity;
+  }
+
+  setImage({ imageSrc, imageWidth, imageHeight }) {
+    this.image = new Image();
+    this.image.src = imageSrc;
+    this.image.width = imageWidth;
+    this.image.height = imageHeight;
   }
 
   setSprites(sprites) {
