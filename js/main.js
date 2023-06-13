@@ -311,11 +311,9 @@ function animate() {
   healthBar.draw();
 
   let backgroundMoving = true;
-  player.moving = false;
-  player.velocity = 10;
+  player.spriteName = "idle";
 
   if (keys.w.pressed) {
-    player.moving = true;
     player.spriteName = "up";
 
     for (let i = 0; i < boundaries.length; i++) {
@@ -334,7 +332,6 @@ function animate() {
       ) {
         backgroundMoving = false;
         if (boundary.code === 39) {
-          player.moving = true;
           player.spriteName = "damageUp";
         }
         break;
@@ -346,7 +343,6 @@ function animate() {
   }
 
   if (keys.s.pressed) {
-    player.moving = true;
     player.spriteName = "down";
 
     for (let i = 0; i < boundaries.length; i++) {
@@ -365,7 +361,6 @@ function animate() {
       ) {
         backgroundMoving = false;
         if (boundary.code === 39) {
-          player.moving = true;
           player.spriteName = "damageDown";
         }
         break;
@@ -377,7 +372,6 @@ function animate() {
   }
 
   if (keys.a.pressed) {
-    player.moving = true;
     player.spriteName = "left";
 
     for (let i = 0; i < boundaries.length; i++) {
@@ -396,7 +390,6 @@ function animate() {
       ) {
         backgroundMoving = false;
         if (boundary.code === 39) {
-          player.moving = true;
           player.spriteName = "damageLeft";
         }
         break;
@@ -408,7 +401,6 @@ function animate() {
   }
 
   if (keys.d.pressed) {
-    player.moving = true;
     player.spriteName = "right";
 
     for (let i = 0; i < boundaries.length; i++) {
@@ -427,7 +419,6 @@ function animate() {
       ) {
         backgroundMoving = false;
         if (boundary.code === 39) {
-          player.moving = true;
           player.spriteName = "damageRight";
         }
         break;
@@ -439,7 +430,6 @@ function animate() {
   }
 
   if (keys.spaceBar.pressed) {
-    player.moving = true;
     player.spriteName = "rightAxe";
     player.velocity = 8;
 
@@ -459,7 +449,6 @@ function animate() {
       ) {
         backgroundMoving = false;
         if (boundary.code === 39) {
-          player.moving = true;
           player.spriteName = "damageRight";
         }
         break;
