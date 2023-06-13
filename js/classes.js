@@ -12,9 +12,8 @@ class Sprite {
     this.position = position;
     this.setImage({ imageSrc, imageWidth, imageHeight });
     this.frames = { ...frames, val: 0, elapsed: 0 };
-
     this.moving = moving;
-    this.sprites = this.setSprites(sprites);
+    this.setSprites(sprites);
     this.width = this.image.width / this.frames.max;
     this.height = this.image.height;
     this.velocity = velocity;
@@ -28,17 +27,27 @@ class Sprite {
   }
 
   setSprites(sprites) {
-    if (!sprites.length) return sprites;
+    if (!sprites.length) this.sprites = null;
 
     let spriteFormatted = {};
 
     sprites.forEach((sprite) => {
       const image = new Image();
       image.src = sprite.imageSrc;
-      spriteFormatted[sprite.action] = image;
+
+      spriteFormatted[sprite.action] = {
+        image,
+        width: sprite.width,
+        height: sprite.height,
+        quantity: sprite.quantity,
+        position: {
+          x: sprite.position.x,
+          y: sprite.position.y,
+        },
+      };
     });
 
-    return spriteFormatted;
+    this.sprites = spriteFormatted;
   }
 
   getSourcePositionX() {
