@@ -152,7 +152,7 @@ class Boundary {
   static width = 48;
   static height = 48;
 
-  constructor({ position, code, isTransparent = true }) {
+  constructor({ position, code, isTransparent = false }) {
     this.position = position;
     this.width = Boundary.width;
     this.height = Boundary.height;
@@ -161,16 +161,22 @@ class Boundary {
   }
 
   draw() {
+    if (this.code === mapConstants.rock) {
+      ctx.fillStyle = `rgba(128, 128, 128, ${
+        this.isTransparent ? "0" : "0.5"
+      })`;
+    }
+
     if (this.code === mapConstants.monster) {
-      ctx.fillStyle = `rgba(0, 0, 255, ${this.isTransparent ? "0" : "0.3"})`;
+      ctx.fillStyle = `rgba(160, 32, 240, ${this.isTransparent ? "0" : "0.3"})`;
     }
 
     if (this.code === mapConstants.boundary) {
       ctx.fillStyle = `rgba(255, 0, 0, ${this.isTransparent ? "0" : "0.2"})`;
     }
 
-    if (this.code === mapConstants.rock) {
-      ctx.fillStyle = `rgba(0, 255, 0, ${this.isTransparent ? "0" : "0.5"})`;
+    if (this.code === mapConstants.tree) {
+      ctx.fillStyle = `rgba(0, 255, 0, ${this.isTransparent ? "0" : "0.2"})`;
     }
 
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
