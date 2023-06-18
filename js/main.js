@@ -7,23 +7,15 @@ canvas.height = 576;
 ctx.fillStyle = "white";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-let collisionsSaved = localStorage.getItem("collisionsSaved");
-
-if (!collisionsSaved) {
-  localStorage.setItem("collisionsSaved", JSON.stringify(collisions));
-  collisionsSaved = collisions;
-} else {
-  collisionsSaved = JSON.parse(collisionsSaved);
-}
-
 const collisionsMap = [];
-for (let i = 0; i < collisionsSaved.length; i += 70) {
-  collisionsMap.push(collisionsSaved.slice(i, 70 + i));
+for (let i = 0; i < collisions.length; i += 70) {
+  collisionsMap.push(collisions.slice(i, 70 + i));
 }
 
 const boundaries = [];
 const bubbleMonsters = [];
 const rocks = [];
+const trees = [];
 
 const offset = {
   x: -735,
@@ -71,6 +63,24 @@ collisionsMap.forEach((row, i) => {
             x: j * Boundary.width + offset.x - 4,
             y: i * Boundary.height + offset.y - 4,
           },
+        })
+      );
+    }
+    if (symbol === mapConstants.tree) {
+      trees.push(
+        new Sprite({
+          imageSrc: "./img/tree-2.png",
+          imageWidth: 224 * 2,
+          imageHeight: 228,
+          position: {
+            x: j * Boundary.width + offset.x - 80,
+            y: i * Boundary.height + offset.y - 175,
+          },
+          moving: true,
+          frames: {
+            max: 2,
+          },
+          velocity: 40,
         })
       );
     }
@@ -214,16 +224,6 @@ const foreground = new Sprite({
   imageHeight: 1920,
 });
 
-const tree = new Sprite({
-  imageSrc: "./img/tree-2.png",
-  imageWidth: 224,
-  imageHeight: 228,
-  position: {
-    x: 680,
-    y: 170,
-  },
-});
-
 const wormMonster = new Sprite({
   imageSrc: "./img/monsters/worm.png",
   imageWidth: 344,
@@ -279,7 +279,7 @@ const movables = [
   ...bubbleMonsters,
   ...rocks,
   wormMonster,
-  tree,
+  ...trees,
 ];
 
 function rectangularCollision({ rectangle1, rectangle2 }) {
@@ -308,7 +308,7 @@ function animate() {
 
   rocks.forEach((rock) => rock.draw());
 
-  tree.draw();
+  trees.forEach((tree) => tree.draw());
 
   wormMonster.draw();
 
@@ -520,31 +520,4 @@ window.addEventListener("keyup", (ev) => {
     default:
       break;
   }
-});
-
-window.addEventListener("click", (ev) => {
-  const position = {
-    x: Math.floor((ev.x - offset.x) / 48),
-    y: Math.floor((ev.y - offset.y) / 48),
-  };
-
-  const block = position.y * 70 + position.x;
-
-  console.log({
-    ...position,
-    block,
-  });
-
-  collisionsSaved[block] = mapConstants.rock;
-  localStorage.setItem("collisionsSaved", JSON.stringify(collisions));
-
-  boundaries.push(
-    new Boundary({
-      code: mapConstants.rock,
-      position: {
-        x: ev.x,
-        y: ev.y,
-      },
-    })
-  );
 });
