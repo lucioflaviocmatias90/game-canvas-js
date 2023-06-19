@@ -5,7 +5,7 @@ class Sprite {
     imageSrc,
     frames = { max: 1 },
     sprites = [],
-    moving = false,
+    animate = false,
     imageWidth,
     imageHeight,
     spriteName = "",
@@ -13,7 +13,7 @@ class Sprite {
     this.position = position;
     this.setImage({ imageSrc, imageWidth, imageHeight });
     this.frames = { ...frames, val: 0, elapsed: 0 };
-    this.moving = moving;
+    this.animate = animate;
     this.setSprites(sprites);
     this.setWidth(spriteName);
     this.setHeight(spriteName);
@@ -135,7 +135,11 @@ class Sprite {
       this.getDestinationHeight()
     );
 
-    if (!this.moving) return;
+    this.update();
+  }
+
+  update() {
+    if (!this.animate) return;
 
     if (this.frames.max > 1) {
       this.frames.elapsed++;

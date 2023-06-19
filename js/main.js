@@ -48,7 +48,7 @@ collisionsMap.forEach((row, i) => {
           frames: {
             max: 4,
           },
-          moving: true,
+          animate: true,
           velocity: 15,
         })
       );
@@ -76,7 +76,7 @@ collisionsMap.forEach((row, i) => {
             x: j * Boundary.width + offset.x - 80,
             y: i * Boundary.height + offset.y - 175,
           },
-          moving: true,
+          animate: false,
           frames: {
             max: 2,
           },
@@ -200,7 +200,7 @@ const player = new Sprite({
       quantity: 4,
     },
   ],
-  moving: true,
+  animate: true,
   spriteName: "idle",
 });
 
@@ -232,7 +232,7 @@ const wormMonster = new Sprite({
     x: 1120,
     y: 0,
   },
-  moving: true,
+  animate: true,
   frames: {
     max: 4,
   },
@@ -247,7 +247,7 @@ const healthBar = new Sprite({
     y: 10,
   },
   // TODO: apagar as linhas debaixo, quando implementar o personagem receber o dano pelo monstro
-  moving: true,
+  animate: true,
   frames: {
     max: 5,
   },
