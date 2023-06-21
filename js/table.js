@@ -77,7 +77,7 @@ function insertColor(td, column) {
   }
 }
 
-createTable(falses);
+createTable(false);
 createSelect();
 
 window.addEventListener("click", (ev) => {

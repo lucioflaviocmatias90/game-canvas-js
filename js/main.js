@@ -87,7 +87,7 @@ collisionsMap.forEach((row, i) => {
   });
 });
 
-const player = new Sprite({
+const player = new Player({
   position: {
     x: canvas.width / 2 - 192 / 4 / 2,
     y: canvas.height / 2 - 68 / 2,
@@ -192,7 +192,7 @@ const player = new Sprite({
     {
       action: "rightAxe",
       width: 84,
-      height: 80,
+      height: 84,
       position: {
         x: 0,
         y: 648,
@@ -247,11 +247,11 @@ const healthBar = new Sprite({
     y: 10,
   },
   // TODO: apagar as linhas debaixo, quando implementar o personagem receber o dano pelo monstro
-  animate: true,
+  animate: false,
   frames: {
     max: 5,
   },
-  velocity: 90,
+  velocity: 40,
 });
 
 const keys = {
@@ -316,6 +316,7 @@ function animate() {
 
   let backgroundMoving = true;
   player.spriteName = "idle";
+  healthBar.animate = false;
 
   if (keys.w.pressed) {
     player.spriteName = "up";
@@ -337,6 +338,7 @@ function animate() {
         backgroundMoving = false;
         if (boundary.code === 39) {
           player.spriteName = "damageUp";
+          healthBar.animate = true;
         }
         break;
       }
@@ -366,6 +368,7 @@ function animate() {
         backgroundMoving = false;
         if (boundary.code === 39) {
           player.spriteName = "damageDown";
+          healthBar.animate = true;
         }
         break;
       }
@@ -395,6 +398,7 @@ function animate() {
         backgroundMoving = false;
         if (boundary.code === 39) {
           player.spriteName = "damageLeft";
+          healthBar.animate = true;
         }
         break;
       }
@@ -422,8 +426,9 @@ function animate() {
         })
       ) {
         backgroundMoving = false;
-        if (boundary.code === 39) {
+        if (boundary.code === mapConstants.monster) {
           player.spriteName = "damageRight";
+          healthBar.animate = true;
         }
         break;
       }
@@ -458,6 +463,10 @@ function animate() {
         break;
       }
     }
+  }
+
+  if (healthBar.frames.val === 4) {
+    console.log("vc morreu!");
   }
 }
 
