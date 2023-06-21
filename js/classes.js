@@ -156,7 +156,7 @@ class Boundary {
   static width = 48;
   static height = 48;
 
-  constructor({ position, code, isTransparent = false }) {
+  constructor({ position, code, isTransparent = true }) {
     this.position = position;
     this.width = Boundary.width;
     this.height = Boundary.height;
@@ -165,24 +165,61 @@ class Boundary {
   }
 
   draw() {
+    this.update();
+
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+  }
+
+  update() {
     if (this.code === mapConstants.rock) {
-      ctx.fillStyle = `rgba(128, 128, 128, ${
-        this.isTransparent ? "0" : "0.5"
-      })`;
+      this.color = `rgba(128, 128, 128, ${this.isTransparent ? "0" : "0.5"})`;
     }
 
     if (this.code === mapConstants.monster) {
-      ctx.fillStyle = `rgba(160, 32, 240, ${this.isTransparent ? "0" : "0.3"})`;
+      this.width = 56;
+      this.height = 48;
+      this.color = `rgba(160, 32, 240, ${this.isTransparent ? "0" : "0.3"})`;
     }
 
     if (this.code === mapConstants.boundary) {
-      ctx.fillStyle = `rgba(255, 0, 0, ${this.isTransparent ? "0" : "0.2"})`;
+      this.color = `rgba(255, 0, 0, ${this.isTransparent ? "0" : "0.2"})`;
     }
 
     if (this.code === mapConstants.tree) {
-      ctx.fillStyle = `rgba(0, 255, 0, ${this.isTransparent ? "0" : "0.2"})`;
+      this.color = `rgba(0, 255, 0, ${this.isTransparent ? "0" : "0.2"})`;
     }
+  }
+}
 
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+class Player extends Sprite {
+  constructor({
+    position,
+    velocity = 10,
+    imageSrc,
+    frames = { max: 1 },
+    sprites = [],
+    animate = false,
+    imageWidth,
+    imageHeight,
+    spriteName = "",
+  }) {
+    super({
+      position,
+      velocity,
+      imageSrc,
+      frames,
+      sprites,
+      animate,
+      imageWidth,
+      imageHeight,
+      spriteName,
+    });
+
+    this.life = 5;
+  }
+
+  draw() {
+    super.draw();
   }
 }
