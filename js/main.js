@@ -23,7 +23,7 @@ const offset = {
 };
 
 function randomNumber(value) {
-  return parseInt(Math.random() * 800);
+  return parseInt(Math.random() * value);
 }
 
 collisionsMap.forEach((row, i) => {
@@ -51,7 +51,7 @@ collisionsMap.forEach((row, i) => {
           },
           frames: {
             max: 4,
-            // elapsed: randomNumber(800),
+            elapsed: randomNumber(8000),
           },
           animate: true,
           velocity: 15,
@@ -229,20 +229,6 @@ const foreground = new Sprite({
   imageHeight: 1920,
 });
 
-const wormMonster = new Sprite({
-  imageSrc: "./img/monsters/worm.png",
-  imageWidth: 344,
-  imageHeight: 89,
-  position: {
-    x: 1120,
-    y: 0,
-  },
-  animate: true,
-  frames: {
-    max: 4,
-  },
-});
-
 const healthBar = new Sprite({
   imageSrc: "./img/health-bar.png",
   imageWidth: 168 * 5,
@@ -283,7 +269,6 @@ const movables = [
   foreground,
   ...bubbleMonsters,
   ...rocks,
-  wormMonster,
   ...trees,
 ];
 
@@ -314,8 +299,6 @@ function animate() {
   rocks.forEach((rock) => rock.draw());
 
   trees.forEach((tree) => tree.draw());
-
-  wormMonster.draw();
 
   healthBar.draw();
 

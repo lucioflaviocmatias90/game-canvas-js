@@ -12,13 +12,21 @@ class Sprite {
   }) {
     this.position = position;
     this.setImage({ imageSrc, imageWidth, imageHeight });
-    this.frames = { ...frames, val: 0, elapsed: 0 };
+    this.setFrames(frames);
     this.animate = animate;
     this.setSprites(sprites);
     this.setWidth(spriteName);
     this.setHeight(spriteName);
     this.velocity = velocity;
     this.spriteName = spriteName;
+  }
+
+  setFrames(frames) {
+    this.frames = {
+      ...frames,
+      val: frames.val ? frames.val : 0,
+      elapsed: frames.elapsed ? frames.elapsed : 0,
+    };
   }
 
   setImage({ imageSrc, imageWidth, imageHeight }) {
