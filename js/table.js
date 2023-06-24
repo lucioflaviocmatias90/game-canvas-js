@@ -1,7 +1,7 @@
-function createTable(condition) {
-  if (condition) {
-    const table = document.querySelector("table");
+function createTable(condition = false) {
+  const table = document.querySelector("table");
 
+  if (condition) {
     collisionsMap.forEach((row, i) => {
       const tr = document.createElement("tr");
 
@@ -16,17 +16,20 @@ function createTable(condition) {
 
         insertColor(td, column);
 
+        td.style.color = Number(column) === 0 ? "#000" : "#fff";
+
         tr.appendChild(td);
       });
 
       table.appendChild(tr);
     });
+  } else {
+    table.innerHTML = "";
   }
 }
 
 function createSelect() {
   const select = document.querySelector("select");
-
   const option = document.createElement("option");
 
   option.setAttribute("value", "0");
@@ -35,54 +38,27 @@ function createSelect() {
 
   select.appendChild(option);
 
-  Object.entries(mapConstants).forEach((mapConstant) => {
+  mapConstants.forEach((mapConstant) => {
     const option = document.createElement("option");
 
-    option.setAttribute("value", mapConstant[1]);
-    option.innerText = mapConstant[0];
+    option.setAttribute("value", mapConstant.code);
+    option.innerText = mapConstant.name;
 
     select.appendChild(option);
   });
-
-  // <option value="volvo">Volvo</option>
-  // <option value="saab">Saab</option>
-  // <option value="vw">VW</option>
-  // <option value="audi" selected>Audi</option>
 }
 
 function insertColor(td, column) {
-  switch (Number(column)) {
-    case mapConstants.rock:
-      td.style.backgroundColor = "rgba(128, 128, 128, 0.2)";
-      break;
+  const rgbColor =
+    Number(column) === 0
+      ? "rgb(255, 255, 255)"
+      : mapConstants.find((m) => m.code === Number(column)).color.join();
 
-    case mapConstants.monster:
-      td.style.backgroundColor = "rgba(160, 32, 240, 0.2)";
-      break;
-
-    case mapConstants.boundary:
-      td.style.backgroundColor = "rgba(255, 0, 0, 0.2)";
-      break;
-
-    case mapConstants.tree:
-      td.style.backgroundColor = "rgba(0, 255, 0, 0.2)";
-      break;
-
-    case 0:
-      td.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
-      break;
-
-    default:
-      break;
-  }
+  td.style.backgroundColor = `rgb(${rgbColor}`;
 }
-
-createTable(false);
-createSelect();
 
 window.addEventListener("click", (ev) => {
   if (ev.target instanceof HTMLTableCellElement) {
-    // console.log(.innerHTML);
     const selectedValue = document.querySelectorAll("option:checked")[0].value;
 
     const td = ev.target;
@@ -94,8 +70,13 @@ window.addEventListener("click", (ev) => {
 
     td.innerText = selectedValue;
 
+    td.style.color = Number(selectedValue) === 0 ? "#000" : "#fff";
+
     insertColor(td, selectedValue);
 
     collisions[index] = Number(selectedValue);
   }
 });
+
+createTable();
+createSelect();

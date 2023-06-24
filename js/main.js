@@ -22,6 +22,10 @@ const offset = {
   y: -650,
 };
 
+function randomNumber(value) {
+  return parseInt(Math.random() * 800);
+}
+
 collisionsMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if (symbol !== 0) {
@@ -35,7 +39,7 @@ collisionsMap.forEach((row, i) => {
         })
       );
     }
-    if (symbol === mapConstants.monster) {
+    if (symbol === gameItemEnum.MONSTER) {
       bubbleMonsters.push(
         new Sprite({
           imageSrc: "./img/monsters/bubble-green.png",
@@ -47,13 +51,14 @@ collisionsMap.forEach((row, i) => {
           },
           frames: {
             max: 4,
+            // elapsed: randomNumber(800),
           },
           animate: true,
           velocity: 15,
         })
       );
     }
-    if (symbol === mapConstants.rock) {
+    if (symbol === gameItemEnum.ROCK) {
       rocks.push(
         new Sprite({
           imageSrc: "./img/rock.png",
@@ -66,7 +71,7 @@ collisionsMap.forEach((row, i) => {
         })
       );
     }
-    if (symbol === mapConstants.tree) {
+    if (symbol === gameItemEnum.TREE) {
       trees.push(
         new Sprite({
           imageSrc: "./img/tree-2.png",
@@ -335,11 +340,14 @@ function animate() {
           },
         })
       ) {
-        backgroundMoving = false;
-        if (boundary.code === 39) {
+        if (boundary.code === gameItemEnum.MONSTER) {
           player.spriteName = "damageUp";
           healthBar.animate = true;
         }
+        if (boundary.code === gameItemEnum.LEAVES) {
+          continue;
+        }
+        backgroundMoving = false;
         break;
       }
     }
@@ -365,11 +373,14 @@ function animate() {
           },
         })
       ) {
-        backgroundMoving = false;
-        if (boundary.code === 39) {
+        if (boundary.code === gameItemEnum.MONSTER) {
           player.spriteName = "damageDown";
           healthBar.animate = true;
         }
+        if (boundary.code === gameItemEnum.LEAVES) {
+          continue;
+        }
+        backgroundMoving = false;
         break;
       }
     }
@@ -395,11 +406,14 @@ function animate() {
           },
         })
       ) {
-        backgroundMoving = false;
-        if (boundary.code === 39) {
+        if (boundary.code === gameItemEnum.MONSTER) {
           player.spriteName = "damageLeft";
           healthBar.animate = true;
         }
+        if (boundary.code === gameItemEnum.LEAVES) {
+          continue;
+        }
+        backgroundMoving = false;
         break;
       }
     }
@@ -425,11 +439,14 @@ function animate() {
           },
         })
       ) {
-        backgroundMoving = false;
-        if (boundary.code === mapConstants.monster) {
+        if (boundary.code === gameItemEnum.MONSTER) {
           player.spriteName = "damageRight";
           healthBar.animate = true;
         }
+        if (boundary.code === gameItemEnum.LEAVES) {
+          continue;
+        }
+        backgroundMoving = false;
         break;
       }
     }
@@ -457,7 +474,7 @@ function animate() {
         })
       ) {
         backgroundMoving = false;
-        if (boundary.code === 39) {
+        if (boundary.code === gameItemEnum.MONSTER) {
           player.spriteName = "damageRight";
         }
         break;

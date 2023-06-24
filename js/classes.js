@@ -123,17 +123,34 @@ class Sprite {
   }
 
   draw() {
-    ctx.drawImage(
-      this.image,
-      this.getSourcePositionX(),
-      this.getSourcePositionY(),
-      this.getSourceWidth(),
-      this.getSourceHeight(),
-      this.getDestinationPositionX(),
-      this.getDestinationPositionY(),
-      this.getDestinationWidth(),
-      this.getDestinationHeight()
-    );
+    if (this.image.src.includes("/img/tree-2.png")) {
+      ctx.save();
+      ctx.globalAlpha = 0.15;
+      ctx.drawImage(
+        this.image,
+        this.getSourcePositionX(),
+        this.getSourcePositionY(),
+        this.getSourceWidth(),
+        this.getSourceHeight(),
+        this.getDestinationPositionX(),
+        this.getDestinationPositionY(),
+        this.getDestinationWidth(),
+        this.getDestinationHeight()
+      );
+      ctx.restore();
+    } else {
+      ctx.drawImage(
+        this.image,
+        this.getSourcePositionX(),
+        this.getSourcePositionY(),
+        this.getSourceWidth(),
+        this.getSourceHeight(),
+        this.getDestinationPositionX(),
+        this.getDestinationPositionY(),
+        this.getDestinationWidth(),
+        this.getDestinationHeight()
+      );
+    }
 
     this.update();
   }
@@ -165,30 +182,20 @@ class Boundary {
   }
 
   draw() {
-    this.update();
+    this.setColor();
 
     ctx.fillStyle = this.color;
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 
-  update() {
-    if (this.code === mapConstants.rock) {
-      this.color = `rgba(128, 128, 128, ${this.isTransparent ? "0" : "0.5"})`;
-    }
+  getColor() {
+    return mapConstants.find((m) => m.code === this.code).color.join();
+  }
 
-    if (this.code === mapConstants.monster) {
-      this.width = 56;
-      this.height = 48;
-      this.color = `rgba(160, 32, 240, ${this.isTransparent ? "0" : "0.3"})`;
-    }
-
-    if (this.code === mapConstants.boundary) {
-      this.color = `rgba(255, 0, 0, ${this.isTransparent ? "0" : "0.2"})`;
-    }
-
-    if (this.code === mapConstants.tree) {
-      this.color = `rgba(0, 255, 0, ${this.isTransparent ? "0" : "0.2"})`;
-    }
+  setColor() {
+    this.color = `rgba(${this.getColor()}, ${
+      this.isTransparent ? "0" : "0.2"
+    })`;
   }
 }
 
