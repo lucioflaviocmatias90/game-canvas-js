@@ -245,6 +245,7 @@ const healthBar = new Sprite({
   velocity: 40,
 });
 
+
 const keys = {
   w: {
     pressed: false,
@@ -281,25 +282,29 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   );
 }
 
-function opacityTrees(trees, player) {
-  trees
-    .filter((tree) => {
-      if (
-        rectangularCollision({
-          rectangle1: player,
-          rectangle2: {
-            ...tree,
-            position: {
-              x: tree.position.x,
-              y: tree.position.y + 3,
+function opacityTrees(trees, player, colliding) {
+  if (colliding) {
+    trees
+      .filter((tree) => {
+        if (
+          rectangularCollision({
+            rectangle1: player,
+            rectangle2: {
+              ...tree,
+              position: {
+                x: tree.position.x,
+                y: tree.position.y + 3,
+              },
             },
-          },
-        })
-      ) {
-        return tree;
-      }
-    })
-    .forEach((tree) => (tree.opacity = 0.2));
+          })
+        ) {
+          return tree;
+        }
+      })
+      .forEach((tree) => (tree.opacity = 0.2));
+  } else {
+    trees.forEach((tree) => (tree.opacity = 1));
+  }
 }
 
 function animate() {
@@ -324,9 +329,9 @@ function animate() {
   healthBar.draw();
 
   let backgroundMoving = true;
+  let collidingTree = false;
   player.spriteName = "idle";
   healthBar.animate = false;
-  trees.forEach((tree) => (tree.opacity = 1));
 
   if (keys.w.pressed) {
     player.spriteName = "up";
@@ -350,7 +355,7 @@ function animate() {
           healthBar.animate = true;
         }
         if (boundary.code === gameItemEnum.LEAVES) {
-          opacityTrees(trees, player);
+          collidingTree = true;
           continue;
         }
         backgroundMoving = false;
@@ -360,6 +365,7 @@ function animate() {
     if (backgroundMoving) {
       movables.forEach((movable) => (movable.position.y += 3));
     }
+    opacityTrees(trees, player, collidingTree);
   }
 
   if (keys.s.pressed) {
@@ -384,7 +390,7 @@ function animate() {
           healthBar.animate = true;
         }
         if (boundary.code === gameItemEnum.LEAVES) {
-          opacityTrees(trees, player);
+          collidingTree = true;
           continue;
         }
         backgroundMoving = false;
@@ -394,6 +400,7 @@ function animate() {
     if (backgroundMoving) {
       movables.forEach((movable) => (movable.position.y -= 3));
     }
+    opacityTrees(trees, player, collidingTree);
   }
 
   if (keys.a.pressed) {
@@ -418,7 +425,7 @@ function animate() {
           healthBar.animate = true;
         }
         if (boundary.code === gameItemEnum.LEAVES) {
-          opacityTrees(trees, player);
+          collidingTree = true;
           continue;
         }
         backgroundMoving = false;
@@ -428,6 +435,7 @@ function animate() {
     if (backgroundMoving) {
       movables.forEach((movable) => (movable.position.x += 3));
     }
+    opacityTrees(trees, player, collidingTree);
   }
 
   if (keys.d.pressed) {
@@ -452,7 +460,7 @@ function animate() {
           healthBar.animate = true;
         }
         if (boundary.code === gameItemEnum.LEAVES) {
-          opacityTrees(trees, player);
+          collidingTree = true;
           continue;
         }
         backgroundMoving = false;
@@ -462,6 +470,7 @@ function animate() {
     if (backgroundMoving) {
       movables.forEach((movable) => (movable.position.x -= 3));
     }
+    opacityTrees(trees, player, collidingTree);
   }
 
   if (keys.spaceBar.pressed) {
