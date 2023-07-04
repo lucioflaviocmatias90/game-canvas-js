@@ -281,6 +281,27 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   );
 }
 
+function opacityTrees(trees, player) {
+  trees
+    .filter((tree) => {
+      if (
+        rectangularCollision({
+          rectangle1: player,
+          rectangle2: {
+            ...tree,
+            position: {
+              x: tree.position.x,
+              y: tree.position.y + 3,
+            },
+          },
+        })
+      ) {
+        return tree;
+      }
+    })
+    .forEach((tree) => (tree.opacity = 0.2));
+}
+
 function animate() {
   window.requestAnimationFrame(animate);
 
@@ -305,6 +326,7 @@ function animate() {
   let backgroundMoving = true;
   player.spriteName = "idle";
   healthBar.animate = false;
+  trees.forEach((tree) => (tree.opacity = 1));
 
   if (keys.w.pressed) {
     player.spriteName = "up";
@@ -328,6 +350,7 @@ function animate() {
           healthBar.animate = true;
         }
         if (boundary.code === gameItemEnum.LEAVES) {
+          opacityTrees(trees, player);
           continue;
         }
         backgroundMoving = false;
@@ -361,6 +384,7 @@ function animate() {
           healthBar.animate = true;
         }
         if (boundary.code === gameItemEnum.LEAVES) {
+          opacityTrees(trees, player);
           continue;
         }
         backgroundMoving = false;
@@ -394,6 +418,7 @@ function animate() {
           healthBar.animate = true;
         }
         if (boundary.code === gameItemEnum.LEAVES) {
+          opacityTrees(trees, player);
           continue;
         }
         backgroundMoving = false;
@@ -427,6 +452,7 @@ function animate() {
           healthBar.animate = true;
         }
         if (boundary.code === gameItemEnum.LEAVES) {
+          opacityTrees(trees, player);
           continue;
         }
         backgroundMoving = false;

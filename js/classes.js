@@ -19,6 +19,7 @@ class Sprite {
     this.setHeight(spriteName);
     this.velocity = velocity;
     this.spriteName = spriteName;
+    this.opacity = 1;
   }
 
   setFrames(frames) {
@@ -131,36 +132,26 @@ class Sprite {
   }
 
   draw() {
-    if (this.image.src.includes("/img/tree-2.png")) {
-      ctx.save();
-      ctx.globalAlpha = 0.15;
-      ctx.drawImage(
-        this.image,
-        this.getSourcePositionX(),
-        this.getSourcePositionY(),
-        this.getSourceWidth(),
-        this.getSourceHeight(),
-        this.getDestinationPositionX(),
-        this.getDestinationPositionY(),
-        this.getDestinationWidth(),
-        this.getDestinationHeight()
-      );
-      ctx.restore();
-    } else {
-      ctx.drawImage(
-        this.image,
-        this.getSourcePositionX(),
-        this.getSourcePositionY(),
-        this.getSourceWidth(),
-        this.getSourceHeight(),
-        this.getDestinationPositionX(),
-        this.getDestinationPositionY(),
-        this.getDestinationWidth(),
-        this.getDestinationHeight()
-      );
-    }
+    ctx.save();
+    ctx.globalAlpha = this.opacity;
+    this.drawImage();
+    ctx.restore();
 
     this.update();
+  }
+
+  drawImage() {
+    ctx.drawImage(
+      this.image,
+      this.getSourcePositionX(),
+      this.getSourcePositionY(),
+      this.getSourceWidth(),
+      this.getSourceHeight(),
+      this.getDestinationPositionX(),
+      this.getDestinationPositionY(),
+      this.getDestinationWidth(),
+      this.getDestinationHeight()
+    );
   }
 
   update() {
