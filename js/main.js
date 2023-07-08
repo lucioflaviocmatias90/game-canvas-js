@@ -245,6 +245,15 @@ const healthBar = new Sprite({
   velocity: 40,
 });
 
+const tools = new Sprite({
+  imageSrc: "./img/tools.png",
+  position: {
+    x: 190,
+    y: 7,
+  },
+  imageWidth: 176,
+  imageHeight: 48,
+});
 
 const keys = {
   w: {
@@ -327,6 +336,8 @@ function animate() {
   trees.forEach((tree) => tree.draw());
 
   healthBar.draw();
+
+  tools.draw();
 
   let backgroundMoving = true;
   let collidingTree = false;
