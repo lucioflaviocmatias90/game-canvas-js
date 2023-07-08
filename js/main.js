@@ -247,12 +247,17 @@ const healthBar = new Sprite({
 
 const tools = new Sprite({
   imageSrc: "./img/tools.png",
+  imageWidth: 152 * 3,
+  imageHeight: 48,
   position: {
     x: 190,
     y: 7,
   },
-  imageWidth: 176,
-  imageHeight: 48,
+  animate: false,
+  frames: {
+    max: 3,
+  },
+  velocity: 40,
 });
 
 const keys = {
@@ -570,6 +575,18 @@ window.addEventListener("keyup", (ev) => {
 
     case " ":
       keys.spaceBar.pressed = false;
+      break;
+
+    case "1":
+      tools.frames.val = 0;
+      break;
+
+    case "2":
+      tools.frames.val = 1;
+      break;
+
+    case "3":
+      tools.frames.val = 2;
       break;
 
     default:
